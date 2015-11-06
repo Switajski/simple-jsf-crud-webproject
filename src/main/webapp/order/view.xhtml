@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value='#{orderBean.id}'/>
+		<f:event type="preRenderView" listener='#{orderBean.retrieve}'/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="View Order"/>
+
+	<ui:define name="header">
+		Order
+	</ui:define>
+
+	<ui:define name="subheader">
+		View existing Order
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:panelGrid columnClasses="label,component,required" columns="3">
+			<h:outputLabel for="orderBeanOrderDate" value="Date:"/>
+			<h:outputText id="orderBeanOrderDate" value="#{orderBean.order.date}">
+				<f:convertDateTime type="date"/>
+			</h:outputText>
+			<h:outputText/>
+			<h:outputLabel for="orderBeanOrderArticleID" value="Article ID:"/>
+			<h:outputText id="orderBeanOrderArticleID" value="#{orderBean.order.articleID}"/>
+			<h:outputText/>
+			<h:outputLabel for="orderBeanOrderArticleName" value="Article Name:"/>
+			<h:outputText id="orderBeanOrderArticleName" value="#{orderBean.order.articleName}"/>
+			<h:outputText/>
+			<h:outputLabel for="orderBeanOrderPrice" value="Price:"/>
+			<h:outputText id="orderBeanOrderPrice" value="#{orderBean.order.price}"/>
+			<h:outputText/>
+			<h:outputLabel for="orderBeanOrderUserID" value="User ID:"/>
+			<h:outputText id="orderBeanOrderUserID" value="#{orderBean.order.userID}"/>
+			<h:outputText/>
+			<h:outputLabel for="orderBeanOrderAmount" value="Amount:"/>
+			<h:outputText id="orderBeanOrderAmount" value="#{orderBean.order.amount}"/>
+			<h:outputText/>
+			<h:outputLabel for="orderBeanOrderUser" value="User:"/>
+			<h:link id="orderBeanOrderUser" outcome="/user/view" rendered="#{!empty orderBean.order.user}" value="#{orderBean.order.user}">
+				<f:param name="id" value="#{orderBean.order.user.id}"/>
+			</h:link>
+			<h:outputText/>
+		</h:panelGrid>
+
+		<div class="buttons">
+			<h:link value="View All" outcome="search" styleClass="btn btn-primary"/> 
+			<h:link value="Edit" outcome="create" includeViewParams="true" styleClass="btn btn-primary"/>
+			<h:link value="Create New" outcome="create" styleClass="btn btn-primary"/>
+		</div>
+	</ui:define>
+
+</ui:composition>

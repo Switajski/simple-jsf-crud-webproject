@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:forgeview="http://jboss.org/forge/view"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value='#{accountBean.id}'/>
+		<f:event type="preRenderView" listener='#{accountBean.retrieve}'/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="View Account"/>
+
+	<ui:define name="header">
+		Account
+	</ui:define>
+
+	<ui:define name="subheader">
+		View existing Account
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:panelGrid columnClasses="label,component,required" columns="3">
+			<h:outputLabel for="accountBeanAccountName" value="Name:"/>
+			<h:outputText id="accountBeanAccountName" value="#{accountBean.account.name}"/>
+			<h:outputText/>
+			<h:outputLabel for="accountBeanAccountSurname" value="Surname:"/>
+			<h:outputText id="accountBeanAccountSurname" value="#{accountBean.account.surname}"/>
+			<h:outputText/>
+			<h:outputLabel for="accountBeanAccountEmail" value="Email:"/>
+			<h:outputText id="accountBeanAccountEmail" value="#{accountBean.account.email}"/>
+			<h:outputText/>
+			<h:outputLabel for="accountBeanAccountAccountID" value="Account ID:"/>
+			<h:outputText id="accountBeanAccountAccountID" value="#{accountBean.account.accountID}"/>
+			<h:outputText/>
+			<h:outputLabel for="accountBeanAccountLogin" value="Login:"/>
+			<h:outputText id="accountBeanAccountLogin" value="#{accountBean.account.login}"/>
+			<h:outputText/>
+			<h:outputLabel for="accountBeanAccountPassword" value="Password:"/>
+			<h:outputText id="accountBeanAccountPassword" value="#{accountBean.account.password}"/>
+			<h:outputText/>
+			<h:outputLabel for="accountBeanAccountUsers" value="Users:"/>
+			<h:dataTable id="accountBeanAccountUsers" styleClass="data-table" value="#{forgeview:asList(accountBean.account.users)}" var="_item">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Name"/>
+					</f:facet>
+					<h:link outcome="/user/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemName" value="#{_item.name}"/>
+					</h:link>
+				</h:column>
+			</h:dataTable>
+			<h:outputText/>
+			<h:outputLabel value="Is Valid:"/>
+			<h:outputText styleClass="#{accountBean.account.isValid ? 'boolean-true' : 'boolean-false'}" value=""/>
+			<h:outputText/>
+		</h:panelGrid>
+
+		<div class="buttons">
+			<h:link value="View All" outcome="search" styleClass="btn btn-primary"/> 
+			<h:link value="Edit" outcome="create" includeViewParams="true" styleClass="btn btn-primary"/>
+			<h:link value="Create New" outcome="create" styleClass="btn btn-primary"/>
+		</div>
+	</ui:define>
+
+</ui:composition>

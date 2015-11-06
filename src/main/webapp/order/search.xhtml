@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:forgeview="http://jboss.org/forge/view"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="page" value='#{orderBean.page}'/>
+		<f:event type="preRenderView" listener='#{orderBean.paginate}'/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Search Order entities"/>
+
+	<ui:define name="header">
+		Order
+	</ui:define>
+
+	<ui:define name="subheader">
+		Search Order entities
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="search">
+			<f:validateBean disabled="true">
+				<h:panelGroup styleClass="search">
+
+					<h:panelGrid columnClasses="label,component,required" columns="3">
+						<h:outputLabel for="orderBeanExampleArticleID" value="Article ID:"/>
+						<h:panelGroup>
+							<h:inputText id="orderBeanExampleArticleID" value="#{orderBean.example.articleID}"/>
+							<h:message for="orderBeanExampleArticleID" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="orderBeanExampleArticleName" value="Article Name:"/>
+						<h:panelGroup>
+							<h:inputText id="orderBeanExampleArticleName" value="#{orderBean.example.articleName}"/>
+							<h:message for="orderBeanExampleArticleName" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="orderBeanExampleUserID" value="User ID:"/>
+						<h:panelGroup>
+							<h:inputText id="orderBeanExampleUserID" value="#{orderBean.example.userID}"/>
+							<h:message for="orderBeanExampleUserID" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="orderBeanExampleAmount" value="Amount:"/>
+						<h:panelGroup>
+							<h:inputText id="orderBeanExampleAmount" value="#{orderBean.example.amount}"/>
+							<h:message for="orderBeanExampleAmount" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="orderBeanExampleUser" value="User:"/>
+						<h:panelGroup>
+							<h:selectOneMenu converter="#{userBean.converter}" id="orderBeanExampleUser" value="#{orderBean.example.user}">
+								<f:selectItem/>
+								<f:selectItems itemLabel="#{forgeview:display(_item)}" itemValue="#{_item}" value="#{userBean.all}" var="_item"/>
+							</h:selectOneMenu>
+							<h:message for="orderBeanExampleUser" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+					</h:panelGrid>
+					<h:panelGroup styleClass="buttons">
+						<h:commandLink value="Search" action='#{orderBean.search}' styleClass="btn btn-primary"/>
+						<h:commandLink value="Create New" action='#{orderBean.create}' styleClass="btn btn-primary"/>
+					</h:panelGroup>
+				</h:panelGroup>
+			</f:validateBean>
+			
+			<h:dataTable id="orderBeanPageItems" styleClass="data-table" value="#{orderBean.pageItems}" var="_item">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Date"/>
+					</f:facet>
+					<h:link outcome="/order/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemDate" value="#{_item.date}">
+							<f:convertDateTime type="date"/>
+						</h:outputText>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Article ID"/>
+					</f:facet>
+					<h:link outcome="/order/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemArticleID" value="#{_item.articleID}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Article Name"/>
+					</f:facet>
+					<h:link outcome="/order/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemArticleName" value="#{_item.articleName}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Price"/>
+					</f:facet>
+					<h:link outcome="/order/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemPrice" value="#{_item.price}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="User ID"/>
+					</f:facet>
+					<h:link outcome="/order/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemUserID" value="#{_item.userID}"/>
+					</h:link>
+				</h:column>
+			</h:dataTable>
+			<ui:include src="/resources/scaffold/paginator.xhtml">
+				<ui:param name="paginatorBean" value='#{orderBean}'/>
+			</ui:include>
+		</h:form>
+			
+	</ui:define>
+
+</ui:composition>
