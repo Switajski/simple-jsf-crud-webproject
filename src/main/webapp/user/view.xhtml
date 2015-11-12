@@ -32,9 +32,6 @@
 			<h:outputLabel for="userBeanUserSurname" value="Surname:"/>
 			<h:outputText id="userBeanUserSurname" value="#{userBean.user.surname}"/>
 			<h:outputText/>
-			<h:outputLabel for="userBeanUserAccountID" value="Account ID:"/>
-			<h:outputText id="userBeanUserAccountID" value="#{userBean.user.accountID}"/>
-			<h:outputText/>
 			<h:outputLabel for="userBeanUserEmail" value="Email:"/>
 			<h:outputText id="userBeanUserEmail" value="#{userBean.user.email}"/>
 			<h:outputText/>
@@ -68,15 +65,6 @@
 					<h:link outcome="/account/view">
 						<f:param name="id" value="#{_item.id}"/>
 						<h:outputText id="itemEmail" value="#{_item.email}"/>
-					</h:link>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Account ID"/>
-					</f:facet>
-					<h:link outcome="/account/view">
-						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemAccountID" value="#{_item.accountID}"/>
 					</h:link>
 				</h:column>
 				<h:column>

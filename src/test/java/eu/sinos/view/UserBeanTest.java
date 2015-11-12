@@ -20,6 +20,9 @@ public class UserBeanTest {
 	@Deployment
 	public static JavaArchive createDeployment() {
 		return ShrinkWrap.create(JavaArchive.class).addClass(UserBean.class)
+				.addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
+				.addPackages(true, "javax.faces")
+				.addPackages(true, "eu.sinos")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
@@ -27,4 +30,5 @@ public class UserBeanTest {
 	public void should_be_deployed() {
 		Assert.assertNotNull(userBean);
 	}
+	
 }

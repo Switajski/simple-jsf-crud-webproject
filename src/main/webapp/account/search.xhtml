@@ -47,12 +47,6 @@
 							<h:message for="accountBeanExampleEmail" styleClass="error"/>
 						</h:panelGroup>
 						<h:outputText/>
-						<h:outputLabel for="accountBeanExampleAccountID" value="Account ID:"/>
-						<h:panelGroup>
-							<h:inputText id="accountBeanExampleAccountID" value="#{accountBean.example.accountID}"/>
-							<h:message for="accountBeanExampleAccountID" styleClass="error"/>
-						</h:panelGroup>
-						<h:outputText/>
 						<h:outputLabel for="accountBeanExampleLogin" value="Login:"/>
 						<h:panelGroup>
 							<h:inputText id="accountBeanExampleLogin" value="#{accountBean.example.login}"/>
@@ -93,15 +87,6 @@
 					<h:link outcome="/account/view">
 						<f:param name="id" value="#{_item.id}"/>
 						<h:outputText id="itemEmail" value="#{_item.email}"/>
-					</h:link>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Account ID"/>
-					</f:facet>
-					<h:link outcome="/account/view">
-						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemAccountID" value="#{_item.accountID}"/>
 					</h:link>
 				</h:column>
 				<h:column>

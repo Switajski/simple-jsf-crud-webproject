@@ -32,8 +32,8 @@ import eu.sinos.model.Account;
  * This class provides CRUD functionality for all Account entities. It focuses
  * purely on Java EE 6 standards (e.g. <tt>&#64;ConversationScoped</tt> for
  * state management, <tt>PersistenceContext</tt> for persistence,
- * <tt>CriteriaBuilder</tt> for searches) rather than introducing a CRUD framework or
- * custom base class.
+ * <tt>CriteriaBuilder</tt> for searches) rather than introducing a CRUD
+ * framework or custom base class.
  */
 
 @Named
@@ -119,9 +119,12 @@ public class AccountBean implements Serializable {
 				return "view?faces-redirect=true&id=" + this.account.getId();
 			}
 		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(e.getMessage()));
-			return null;
+			FacesContext currentInstance = FacesContext.getCurrentInstance();
+			if (currentInstance != null) {
+				currentInstance.addMessage(null, new FacesMessage(e.getMessage()));
+				return null;
+			} else
+				throw e;
 		}
 	}
 
@@ -135,8 +138,7 @@ public class AccountBean implements Serializable {
 			this.entityManager.flush();
 			return "search?faces-redirect=true";
 		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(e.getMessage()));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
 			return null;
 		}
 	}
@@ -184,19 +186,16 @@ public class AccountBean implements Serializable {
 
 		CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
 		Root<Account> root = countCriteria.from(Account.class);
-		countCriteria = countCriteria.select(builder.count(root)).where(
-				getSearchPredicates(root));
-		this.count = this.entityManager.createQuery(countCriteria)
-				.getSingleResult();
+		countCriteria = countCriteria.select(builder.count(root)).where(getSearchPredicates(root));
+		this.count = this.entityManager.createQuery(countCriteria).getSingleResult();
 
 		// Populate this.pageItems
 
 		CriteriaQuery<Account> criteria = builder.createQuery(Account.class);
 		root = criteria.from(Account.class);
-		TypedQuery<Account> query = this.entityManager.createQuery(criteria
-				.select(root).where(getSearchPredicates(root)));
-		query.setFirstResult(this.page * getPageSize()).setMaxResults(
-				getPageSize());
+		TypedQuery<Account> query = this.entityManager
+				.createQuery(criteria.select(root).where(getSearchPredicates(root)));
+		query.setFirstResult(this.page * getPageSize()).setMaxResults(getPageSize());
 		this.pageItems = query.getResultList();
 	}
 
@@ -207,33 +206,22 @@ public class AccountBean implements Serializable {
 
 		String name = this.example.getName();
 		if (name != null && !"".equals(name)) {
-			predicatesList.add(builder.like(
-					builder.lower(root.<String> get("name")),
-					'%' + name.toLowerCase() + '%'));
+			predicatesList.add(builder.like(builder.lower(root.<String> get("name")), '%' + name.toLowerCase() + '%'));
 		}
 		String surname = this.example.getSurname();
 		if (surname != null && !"".equals(surname)) {
-			predicatesList.add(builder.like(
-					builder.lower(root.<String> get("surname")),
-					'%' + surname.toLowerCase() + '%'));
+			predicatesList
+					.add(builder.like(builder.lower(root.<String> get("surname")), '%' + surname.toLowerCase() + '%'));
 		}
 		String email = this.example.getEmail();
 		if (email != null && !"".equals(email)) {
-			predicatesList.add(builder.like(
-					builder.lower(root.<String> get("email")),
-					'%' + email.toLowerCase() + '%'));
-		}
-		String accountID = this.example.getAccountID();
-		if (accountID != null && !"".equals(accountID)) {
-			predicatesList.add(builder.like(
-					builder.lower(root.<String> get("accountID")),
-					'%' + accountID.toLowerCase() + '%'));
+			predicatesList
+					.add(builder.like(builder.lower(root.<String> get("email")), '%' + email.toLowerCase() + '%'));
 		}
 		String login = this.example.getLogin();
 		if (login != null && !"".equals(login)) {
-			predicatesList.add(builder.like(
-					builder.lower(root.<String> get("login")),
-					'%' + login.toLowerCase() + '%'));
+			predicatesList
+					.add(builder.like(builder.lower(root.<String> get("login")), '%' + login.toLowerCase() + '%'));
 		}
 
 		return predicatesList.toArray(new Predicate[predicatesList.size()]);
@@ -254,10 +242,8 @@ public class AccountBean implements Serializable {
 
 	public List<Account> getAll() {
 
-		CriteriaQuery<Account> criteria = this.entityManager
-				.getCriteriaBuilder().createQuery(Account.class);
-		return this.entityManager.createQuery(
-				criteria.select(criteria.from(Account.class))).getResultList();
+		CriteriaQuery<Account> criteria = this.entityManager.getCriteriaBuilder().createQuery(Account.class);
+		return this.entityManager.createQuery(criteria.select(criteria.from(Account.class))).getResultList();
 	}
 
 	@Resource
@@ -265,21 +251,18 @@ public class AccountBean implements Serializable {
 
 	public Converter getConverter() {
 
-		final AccountBean ejbProxy = this.sessionContext
-				.getBusinessObject(AccountBean.class);
+		final AccountBean ejbProxy = this.sessionContext.getBusinessObject(AccountBean.class);
 
 		return new Converter() {
 
 			@Override
-			public Object getAsObject(FacesContext context,
-					UIComponent component, String value) {
+			public Object getAsObject(FacesContext context, UIComponent component, String value) {
 
 				return ejbProxy.findById(Long.valueOf(value));
 			}
 
 			@Override
-			public String getAsString(FacesContext context,
-					UIComponent component, Object value) {
+			public String getAsString(FacesContext context, UIComponent component, Object value) {
 
 				if (value == null) {
 					return "";
