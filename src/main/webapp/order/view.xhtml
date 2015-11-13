@@ -50,16 +50,6 @@
 				<f:param name="id" value="#{orderBean.order.user.id}"/>
 			</h:link>
 			<h:outputText/>
-			<h:outputLabel for="orderBeanOrderCreateDate" value="Create Date:"/>
-			<h:outputText id="orderBeanOrderCreateDate" value="#{orderBean.order.createDate}">
-				<f:convertDateTime pattern="MMM d, yyyy hh:mm:ss a" type="both"/>
-			</h:outputText>
-			<h:outputText/>
-			<h:outputLabel for="orderBeanOrderUpdateDate" value="Update Date:"/>
-			<h:outputText id="orderBeanOrderUpdateDate" value="#{orderBean.order.updateDate}">
-				<f:convertDateTime/>
-			</h:outputText>
-			<h:outputText/>
 		</h:panelGrid>
 
 		<div class="buttons">

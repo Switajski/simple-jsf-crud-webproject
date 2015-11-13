@@ -131,7 +131,10 @@ public class UserBean implements Serializable {
 
 		try {
 			User deletableEntity = findById(getId());
-
+			Account account = deletableEntity.getAccount();
+			account.getUsers().remove(deletableEntity);
+			deletableEntity.setAccount(null);
+			this.entityManager.merge(account);
 			this.entityManager.remove(deletableEntity);
 			this.entityManager.flush();
 			return "search?faces-redirect=true";

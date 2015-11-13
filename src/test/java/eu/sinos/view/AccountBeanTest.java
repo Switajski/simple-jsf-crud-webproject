@@ -26,13 +26,20 @@ public class AccountBeanTest {
 	@Inject
 	private AccountBean accountBean;
 	
+	@Inject
+	private UserBean userBean;
+	
 	Account account;
+
+	User user;
 
 	@Deployment
 	public static JavaArchive createDeployment() {
 		return ShrinkWrap.create(JavaArchive.class).addClass(UserBean.class)
 				.addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
 				.addPackages(true, "javax.faces")
+				.addPackages(true, "org.apache.commons.lang3")
+				.addPackages(true, "org.jboss.weld.exceptions")
 				.addPackages(true, "eu.sinos")
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
@@ -71,6 +78,34 @@ public class AccountBeanTest {
 		
 		User user = account.getUsers().iterator().next();
 		assertThat(user.getId(), is(not(nullValue())));
+	}
+	
+	@Test
+	public void deleteShouldCascadeUser(){
+		givenSavedAccountWithUser();
+		
+		// assert user is persisted
+		Long userId = user.getId();
+		assertThat(userId, not(nullValue()));
+
+		whenRemovingUserFromAccount();
+		
+		assertThat(userBean.findById(userId) , is(nullValue()));
+	}
+	
+	private void whenRemovingUserFromAccount() {
+		accountBean.create();
+		account.removeUser(user);
+		accountBean.update();
+	}
+
+	private void givenSavedAccountWithUser() {
+		user = new User();
+		account = new Account();
+		account.addUser(user);
+		accountBean.setAccount(account);
+		accountBean.create();
+		accountBean.update();
 	}
 
 	private void whenAddingUser() {

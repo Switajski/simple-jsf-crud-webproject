@@ -1,6 +1,5 @@
 package eu.sinos.model;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,7 +31,7 @@ public class Account extends BaseEntity {
 	@Column
 	private String password;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true)
 	private Set<User> users = new HashSet<User>();
 
 	public String getName() {

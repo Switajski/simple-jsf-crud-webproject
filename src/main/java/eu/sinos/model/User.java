@@ -3,7 +3,6 @@ package eu.sinos.model;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
@@ -39,14 +38,11 @@ public class User extends BaseEntity {
 	@Embedded
 	private Status status;
 
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
+	@NotNull
+	@ManyToOne
 	private Account account;
 
 	public User() {
-	}
-
-	public User(Account account) {
-		this.account = account;
 	}
 
 	public Status getStatus() {

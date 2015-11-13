@@ -25,6 +25,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import eu.sinos.model.Account;
+import eu.sinos.model.User;
+import java.util.Iterator;
 
 /**
  * Backing bean for Account entities.
@@ -130,7 +132,13 @@ public class AccountBean implements Serializable {
 
 		try {
 			Account deletableEntity = findById(getId());
-
+			Iterator<User> iterUsers = deletableEntity.getUsers().iterator();
+			for (; iterUsers.hasNext();) {
+				User nextInUsers = iterUsers.next();
+				nextInUsers.setAccount(null);
+				iterUsers.remove();
+				this.entityManager.merge(nextInUsers);
+			}
 			this.entityManager.remove(deletableEntity);
 			this.entityManager.flush();
 			return "search?faces-redirect=true";

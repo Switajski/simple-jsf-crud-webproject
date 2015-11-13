@@ -45,72 +45,53 @@
 			<h:dataTable id="accountBeanAccountUsers" styleClass="data-table" value="#{forgeview:asList(accountBean.account.users)}" var="_item">
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="AccountID"/>
+						<h:outputText value="Employee"/>
 					</f:facet>
 					<h:link outcome="/user/view">
 						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="forgeviewdisplayitemAccount" value="#{forgeview:display(_item.account)}"/>
+						<h:outputText id="itemStatusEmployee" value="#{_item.status.employee}"/>
 					</h:link>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Name"/>
+						<h:outputText value="Customer"/>
 					</f:facet>
 					<h:link outcome="/user/view">
 						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemName" value="#{_item.name}"/>
+						<h:outputText id="itemStatusCustomer" value="#{_item.status.customer}"/>
 					</h:link>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Surname"/>
+						<h:outputText value="Supplier"/>
 					</f:facet>
 					<h:link outcome="/user/view">
 						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemSurname" value="#{_item.surname}"/>
+						<h:outputText id="itemStatusSupplier" value="#{_item.status.supplier}"/>
 					</h:link>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Email"/>
+						<h:outputText value="Account ID"/>
 					</f:facet>
 					<h:link outcome="/user/view">
 						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemEmail" value="#{_item.email}"/>
+						<h:outputText id="itemAccountID" value="#{_item.accountID}"/>
 					</h:link>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Login"/>
+						<h:outputText value="Address"/>
 					</f:facet>
 					<h:link outcome="/user/view">
 						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemLogin" value="#{_item.login}"/>
-					</h:link>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Password"/>
-					</f:facet>
-					<h:link outcome="/user/view">
-						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemPassword" value="#{_item.password}"/>
+						<h:outputText id="itemAddress" value="#{_item.address}"/>
 					</h:link>
 				</h:column>
 			</h:dataTable>
 			<h:outputText/>
 			<h:outputLabel value="Is Valid:"/>
 			<h:outputText styleClass="#{accountBean.account.isValid ? 'boolean-true' : 'boolean-false'}" value=""/>
-			<h:outputText/>
-			<h:outputLabel for="accountBeanAccountCreateDate" value="Create Date:"/>
-			<h:outputText id="accountBeanAccountCreateDate" value="#{accountBean.account.createDate}">
-				<f:convertDateTime pattern="MMM d, yyyy hh:mm:ss a" type="both"/>
-			</h:outputText>
-			<h:outputText/>
-			<h:outputLabel for="accountBeanAccountUpdateDate" value="Update Date:"/>
-			<h:outputText id="accountBeanAccountUpdateDate" value="#{accountBean.account.updateDate}">
-				<f:convertDateTime/>
-			</h:outputText>
 			<h:outputText/>
 		</h:panelGrid>
 

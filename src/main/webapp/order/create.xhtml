@@ -84,14 +84,6 @@
 					<h:message for="orderBeanOrderUser" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
-				<h:outputLabel for="orderBeanOrderCreateDate" value="Create Date:"/>
-				<h:panelGroup>
-					<h:inputText id="orderBeanOrderCreateDate" value="#{orderBean.order.createDate}">
-						<f:convertDateTime pattern="MMM d, yyyy hh:mm:ss a" type="both"/>
-					</h:inputText>
-					<h:message for="orderBeanOrderCreateDate" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText/>
 			</h:panelGrid>
 
 			<div class="buttons">

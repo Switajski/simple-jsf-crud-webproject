@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 @Entity
+// needed "_" due to being "order" a keyword in every database
 @Table(name = "order_")
 public class Order extends BaseEntity {
 
