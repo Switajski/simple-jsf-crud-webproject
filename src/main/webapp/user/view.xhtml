@@ -4,7 +4,6 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:forgeview="http://jboss.org/forge/view"
 	template="/resources/scaffold/pageTemplate.xhtml">
 
 	<f:metadata>
@@ -26,6 +25,31 @@
 
 	<ui:define name="main">
 		<h:panelGrid columnClasses="label,component,required" columns="3">
+			<h:outputLabel for="userBeanUserStatus" value="Status:"/>
+			<h:panelGrid columnClasses="label,component,required" columns="3" id="userBeanUserStatus" rendered="#{!empty userBean.user.status}">
+				<h:outputLabel for="userBeanUserStatusEmployee" value="Employee:"/>
+				<h:outputText id="userBeanUserStatusEmployee" value="#{userBean.user.status.employee}"/>
+				<h:outputText/>
+				<h:outputLabel for="userBeanUserStatusCustomer" value="Customer:"/>
+				<h:outputText id="userBeanUserStatusCustomer" value="#{userBean.user.status.customer}"/>
+				<h:outputText/>
+				<h:outputLabel for="userBeanUserStatusSupplier" value="Supplier:"/>
+				<h:outputText id="userBeanUserStatusSupplier" value="#{userBean.user.status.supplier}"/>
+				<h:outputText/>
+			</h:panelGrid>
+			<h:outputText/>
+			<h:outputText/>
+			<h:outputLabel for="userBeanUserAccountID" value="Account ID:"/>
+			<h:outputText id="userBeanUserAccountID" value="#{userBean.user.accountID}"/>
+			<h:outputText/>
+			<h:outputLabel for="userBeanUserAddress" value="Address:"/>
+			<h:outputText id="userBeanUserAddress" value="#{userBean.user.address}"/>
+			<h:outputText/>
+			<h:outputLabel for="userBeanUserAccount" value="Account:"/>
+			<h:link id="userBeanUserAccount" outcome="/account/view" rendered="#{!empty userBean.user.account}" value="#{userBean.user.account}">
+				<f:param name="id" value="#{userBean.user.account.id}"/>
+			</h:link>
+			<h:outputText/>
 			<h:outputLabel for="userBeanUserName" value="Name:"/>
 			<h:outputText id="userBeanUserName" value="#{userBean.user.name}"/>
 			<h:outputText/>
@@ -35,51 +59,19 @@
 			<h:outputLabel for="userBeanUserEmail" value="Email:"/>
 			<h:outputText id="userBeanUserEmail" value="#{userBean.user.email}"/>
 			<h:outputText/>
-			<h:outputLabel for="userBeanUserAddress" value="Address:"/>
-			<h:outputText id="userBeanUserAddress" value="#{userBean.user.address}"/>
+			<h:outputLabel for="userBeanUserLogin" value="Login:"/>
+			<h:outputText id="userBeanUserLogin" value="#{userBean.user.login}"/>
 			<h:outputText/>
-			<h:outputLabel for="userBeanUserAccount" value="Account:"/>
-			<h:dataTable id="userBeanUserAccount" styleClass="data-table" value="#{forgeview:asList(userBean.user.account)}" var="_item">
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Name"/>
-					</f:facet>
-					<h:link outcome="/account/view">
-						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemName" value="#{_item.name}"/>
-					</h:link>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Surname"/>
-					</f:facet>
-					<h:link outcome="/account/view">
-						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemSurname" value="#{_item.surname}"/>
-					</h:link>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Email"/>
-					</f:facet>
-					<h:link outcome="/account/view">
-						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemEmail" value="#{_item.email}"/>
-					</h:link>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Login"/>
-					</f:facet>
-					<h:link outcome="/account/view">
-						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemLogin" value="#{_item.login}"/>
-					</h:link>
-				</h:column>
-			</h:dataTable>
+			<h:outputLabel for="userBeanUserPassword" value="Password:"/>
+			<h:outputText id="userBeanUserPassword" value="#{userBean.user.password}"/>
 			<h:outputText/>
-			<h:outputLabel value="Is Valid:"/>
-			<h:outputText styleClass="#{userBean.user.isValid ? 'boolean-true' : 'boolean-false'}" value=""/>
+			<h:outputLabel value="Valid:"/>
+			<h:outputText styleClass="#{userBean.user.valid ? 'boolean-true' : 'boolean-false'}" value=""/>
+			<h:outputText/>
+			<h:outputLabel for="userBeanUserCreateDate" value="Create Date:"/>
+			<h:outputText id="userBeanUserCreateDate" value="#{userBean.user.createDate}">
+				<f:convertDateTime pattern="MMM d, yyyy hh:mm:ss a" type="both"/>
+			</h:outputText>
 			<h:outputText/>
 		</h:panelGrid>
 

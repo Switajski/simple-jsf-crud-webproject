@@ -9,11 +9,11 @@
 	template="/resources/scaffold/pageTemplate.xhtml">
 
 	<f:metadata>
-		<f:viewParam name="id" value='#{accountBean.id}'/>
-		<f:event type="preRenderView" listener='#{accountBean.retrieve}'/>
+		<f:viewParam name="id" value='#{accountBean.id}' />
+		<f:event type="preRenderView" listener='#{accountBean.retrieve}' />
 	</f:metadata>
 
-	<ui:param name="pageTitle" value="Create Account"/>
+	<ui:param name="pageTitle" value="Create Account" />
 
 	<ui:define name="header">
 		Account
@@ -30,88 +30,153 @@
 		</c:choose>
 	</ui:define>
 
-	<ui:define name="footer"/>
+	<ui:define name="footer" />
 
 	<ui:define name="main">
 		<h:form id="create">
-			<h:messages globalOnly="true" styleClass="error"/>
+			<h:messages globalOnly="true" styleClass="error" />
 
 			<h:panelGrid columnClasses="label,component,required" columns="3">
-				<h:outputLabel for="accountBeanAccountName" value="Name:"/>
+				<h:outputLabel for="accountBeanAccountName" value="Name:" />
 				<h:panelGroup>
-					<h:inputText id="accountBeanAccountName" value="#{accountBean.account.name}"/>
-					<h:message for="accountBeanAccountName" styleClass="error"/>
+					<h:inputText id="accountBeanAccountName"
+						value="#{accountBean.account.name}" />
+					<h:message for="accountBeanAccountName" styleClass="error" />
 				</h:panelGroup>
-				<h:outputText/>
-				<h:outputLabel for="accountBeanAccountSurname" value="Surname:"/>
+				<h:outputText />
+				<h:outputLabel for="accountBeanAccountSurname" value="Surname:" />
 				<h:panelGroup>
-					<h:inputText id="accountBeanAccountSurname" value="#{accountBean.account.surname}"/>
-					<h:message for="accountBeanAccountSurname" styleClass="error"/>
+					<h:inputText id="accountBeanAccountSurname"
+						value="#{accountBean.account.surname}" />
+					<h:message for="accountBeanAccountSurname" styleClass="error" />
 				</h:panelGroup>
-				<h:outputText/>
-				<h:outputLabel for="accountBeanAccountEmail" value="Email:"/>
+				<h:outputText />
+				<h:outputLabel for="accountBeanAccountEmail" value="Email:" />
 				<h:panelGroup>
-					<h:inputText id="accountBeanAccountEmail" value="#{accountBean.account.email}"/>
-					<h:message for="accountBeanAccountEmail" styleClass="error"/>
+					<h:inputText id="accountBeanAccountEmail"
+						value="#{accountBean.account.email}" />
+					<h:message for="accountBeanAccountEmail" styleClass="error" />
 				</h:panelGroup>
-				<h:outputText/>
-				<h:outputLabel for="accountBeanAccountLogin" value="Login:"/>
+				<h:outputText />
+				<h:outputLabel for="accountBeanAccountLogin" value="Login:" />
 				<h:panelGroup>
-					<h:inputText id="accountBeanAccountLogin" value="#{accountBean.account.login}"/>
-					<h:message for="accountBeanAccountLogin" styleClass="error"/>
+					<h:inputText id="accountBeanAccountLogin"
+						value="#{accountBean.account.login}" />
+					<h:message for="accountBeanAccountLogin" styleClass="error" />
 				</h:panelGroup>
-				<h:outputText/>
-				<h:outputLabel for="accountBeanAccountPassword" value="Password:"/>
+				<h:outputText />
+				<h:outputLabel for="accountBeanAccountPassword" value="Password:" />
 				<h:panelGroup>
-					<h:inputText id="accountBeanAccountPassword" value="#{accountBean.account.password}"/>
-					<h:message for="accountBeanAccountPassword" styleClass="error"/>
+					<h:inputText id="accountBeanAccountPassword"
+						value="#{accountBean.account.password}" />
+					<h:message for="accountBeanAccountPassword" styleClass="error" />
 				</h:panelGroup>
-				<h:outputText/>
-				<h:outputLabel for="accountBeanAccountUsers" value="Users:"/>
+				<h:outputText />
+				<h:outputLabel for="accountBeanAccountUsers" value="Users:" />
 				<h:panelGroup>
-					<ui:param name="_collection" value="#{accountBean.account.users}"/>
-					<h:dataTable id="accountBeanAccountUsers" styleClass="data-table" value="#{forgeview:asList(_collection)}" var="_item">
+					<ui:param name="_collection" value="#{accountBean.account.users}" />
+					<h:dataTable id="accountBeanAccountUsers" styleClass="data-table"
+						value="#{forgeview:asList(_collection)}" var="_item">
 						<h:column>
 							<f:facet name="header">
-								<h:outputText value="Name"/>
+								<h:outputText value="Account" />
 							</f:facet>
 							<h:link outcome="/user/view">
-								<f:param name="id" value="#{_item.id}"/>
-								<h:outputText id="itemName" value="#{_item.name}"/>
+								<f:param name="id" value="#{_item.id}" />
+								<h:outputText id="forgeviewdisplayitemAccount"
+									value="#{forgeview:display(_item.account)}" />
+							</h:link>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Name" />
+							</f:facet>
+							<h:link outcome="/user/view">
+								<f:param name="id" value="#{_item.id}" />
+								<h:outputText id="itemName" value="#{_item.name}" />
+							</h:link>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Surname" />
+							</f:facet>
+							<h:link outcome="/user/view">
+								<f:param name="id" value="#{_item.id}" />
+								<h:outputText id="itemSurname" value="#{_item.surname}" />
+							</h:link>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Email" />
+							</f:facet>
+							<h:link outcome="/user/view">
+								<f:param name="id" value="#{_item.id}" />
+								<h:outputText id="itemEmail" value="#{_item.email}" />
+							</h:link>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Login" />
+							</f:facet>
+							<h:link outcome="/user/view">
+								<f:param name="id" value="#{_item.id}" />
+								<h:outputText id="itemLogin" value="#{_item.login}" />
+							</h:link>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Password" />
+							</f:facet>
+							<h:link outcome="/user/view">
+								<f:param name="id" value="#{_item.id}" />
+								<h:outputText id="itemPassword" value="#{_item.password}" />
 							</h:link>
 						</h:column>
 						<h:column footerClass="remove-column" headerClass="remove-column">
-							<h:commandLink action="#{_collection.remove(_item)}" styleClass="remove-button"/>
+							<h:commandLink action="#{_collection.remove(_item)}"
+								styleClass="remove-button" />
 						</h:column>
 					</h:dataTable>
-					<h:panelGrid columnClasses=",remove-column" columns="2" styleClass="data-table-footer">
-						<h:selectOneMenu converter="#{userBean.converter}" id="accountBeanAccountUsersSelect" value="#{requestScope['accountBeanAccountUsersSelect']}">
-							<f:selectItem/>
-							<f:selectItems itemLabel="#{forgeview:display(_item)}" itemValue="#{_item}" value="#{userBean.all}" var="_item"/>
+					<h:panelGrid columnClasses=",remove-column" columns="2"
+						styleClass="data-table-footer">
+						<h:selectOneMenu converter="#{userBean.converter}"
+							id="accountBeanAccountUsersSelect"
+							value="#{requestScope['accountBeanAccountUsersSelect']}">
+							<f:selectItem />
+							<f:selectItems itemLabel="#{forgeview:display(_item)}"
+								itemValue="#{_item}" value="#{userBean.all}" var="_item" />
 						</h:selectOneMenu>
-						<h:commandLink action="#{_collection.add(requestScope['accountBeanAccountUsersSelect'])}" id="accountBeanAccountUsersAdd" onclick="if (document.getElementById(document.forms[0].id+':accountBeanAccountUsersSelect').selectedIndex &lt; 1) { alert('Must select a User'); return false; }" styleClass="add-button"/>
+						<h:commandLink
+							action="#{_collection.add(requestScope['accountBeanAccountUsersSelect'])}"
+							id="accountBeanAccountUsersAdd"
+							onclick="if (document.getElementById(document.forms[0].id+':accountBeanAccountUsersSelect').selectedIndex &lt; 1) { alert('Must select a User'); return false; }"
+							styleClass="add-button" />
 					</h:panelGrid>
 				</h:panelGroup>
-				<h:outputText/>
-				<h:outputLabel for="accountBeanAccountIsValid" value="Is Valid:"/>
+				<h:outputText />
+				<h:outputLabel for="accountBeanAccountIsValid" value="Is Valid:" />
 				<h:panelGroup>
-					<h:selectBooleanCheckbox id="accountBeanAccountIsValid" value="#{accountBean.account.isValid}"/>
-					<h:message for="accountBeanAccountIsValid" styleClass="error"/>
+					<h:selectBooleanCheckbox id="accountBeanAccountIsValid"
+						value="#{accountBean.account.isValid}" />
+					<h:message for="accountBeanAccountIsValid" styleClass="error" />
 				</h:panelGroup>
-				<h:outputText/>
+				<h:outputText />
 			</h:panelGrid>
 
 			<div class="buttons">
-				<h:commandLink value="Save" action='#{accountBean.update}' styleClass="btn btn-primary"/>
+				<h:commandLink value="Save" action='#{accountBean.update}'
+					styleClass="btn btn-primary" />
 				<c:choose>
 					<c:when test='#{!empty accountBean.id}'>
 						<h:link value="Cancel" outcome="view" styleClass="btn btn-primary">
-							<f:param name="id" value='#{accountBean.id}'/>
+							<f:param name="id" value='#{accountBean.id}' />
 						</h:link>
-						<h:commandLink value="Delete" action='#{accountBean.delete}' styleClass="btn btn-primary"/>
+						<h:commandLink value="Delete" action='#{accountBean.delete}'
+							styleClass="btn btn-primary" />
 					</c:when>
 					<c:otherwise>
-						<h:link value="Cancel" outcome="search" styleClass="btn btn-primary"/>
+						<h:link value="Cancel" outcome="search"
+							styleClass="btn btn-primary" />
 					</c:otherwise>
 				</c:choose>
 			</div>

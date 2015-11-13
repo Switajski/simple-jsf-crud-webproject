@@ -25,6 +25,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import eu.sinos.model.User;
+import eu.sinos.model.Account;
 
 /**
  * Backing bean for User entities.
@@ -205,6 +206,22 @@ public class UserBean implements Serializable {
 		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
 		List<Predicate> predicatesList = new ArrayList<Predicate>();
 
+		String accountID = this.example.getAccountID();
+		if (accountID != null && !"".equals(accountID)) {
+			predicatesList.add(builder.like(
+					builder.lower(root.<String> get("accountID")),
+					'%' + accountID.toLowerCase() + '%'));
+		}
+		String address = this.example.getAddress();
+		if (address != null && !"".equals(address)) {
+			predicatesList.add(builder.like(
+					builder.lower(root.<String> get("address")),
+					'%' + address.toLowerCase() + '%'));
+		}
+		Account account = this.example.getAccount();
+		if (account != null) {
+			predicatesList.add(builder.equal(root.get("account"), account));
+		}
 		String name = this.example.getName();
 		if (name != null && !"".equals(name)) {
 			predicatesList.add(builder.like(
@@ -216,24 +233,6 @@ public class UserBean implements Serializable {
 			predicatesList.add(builder.like(
 					builder.lower(root.<String> get("surname")),
 					'%' + surname.toLowerCase() + '%'));
-		}
-		String accountID = this.example.getAccountID();
-		if (accountID != null && !"".equals(accountID)) {
-			predicatesList.add(builder.like(
-					builder.lower(root.<String> get("accountID")),
-					'%' + accountID.toLowerCase() + '%'));
-		}
-		String email = this.example.getEmail();
-		if (email != null && !"".equals(email)) {
-			predicatesList.add(builder.like(
-					builder.lower(root.<String> get("email")),
-					'%' + email.toLowerCase() + '%'));
-		}
-		String address = this.example.getAddress();
-		if (address != null && !"".equals(address)) {
-			predicatesList.add(builder.like(
-					builder.lower(root.<String> get("address")),
-					'%' + address.toLowerCase() + '%'));
 		}
 
 		return predicatesList.toArray(new Predicate[predicatesList.size()]);

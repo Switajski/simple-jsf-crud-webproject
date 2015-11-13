@@ -45,6 +45,15 @@
 			<h:dataTable id="accountBeanAccountUsers" styleClass="data-table" value="#{forgeview:asList(accountBean.account.users)}" var="_item">
 				<h:column>
 					<f:facet name="header">
+						<h:outputText value="AccountID"/>
+					</f:facet>
+					<h:link outcome="/user/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="forgeviewdisplayitemAccount" value="#{forgeview:display(_item.account)}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
 						<h:outputText value="Name"/>
 					</f:facet>
 					<h:link outcome="/user/view">
@@ -52,10 +61,56 @@
 						<h:outputText id="itemName" value="#{_item.name}"/>
 					</h:link>
 				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Surname"/>
+					</f:facet>
+					<h:link outcome="/user/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemSurname" value="#{_item.surname}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Email"/>
+					</f:facet>
+					<h:link outcome="/user/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemEmail" value="#{_item.email}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Login"/>
+					</f:facet>
+					<h:link outcome="/user/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemLogin" value="#{_item.login}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Password"/>
+					</f:facet>
+					<h:link outcome="/user/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemPassword" value="#{_item.password}"/>
+					</h:link>
+				</h:column>
 			</h:dataTable>
 			<h:outputText/>
 			<h:outputLabel value="Is Valid:"/>
 			<h:outputText styleClass="#{accountBean.account.isValid ? 'boolean-true' : 'boolean-false'}" value=""/>
+			<h:outputText/>
+			<h:outputLabel for="accountBeanAccountCreateDate" value="Create Date:"/>
+			<h:outputText id="accountBeanAccountCreateDate" value="#{accountBean.account.createDate}">
+				<f:convertDateTime pattern="MMM d, yyyy hh:mm:ss a" type="both"/>
+			</h:outputText>
+			<h:outputText/>
+			<h:outputLabel for="accountBeanAccountUpdateDate" value="Update Date:"/>
+			<h:outputText id="accountBeanAccountUpdateDate" value="#{accountBean.account.updateDate}">
+				<f:convertDateTime/>
+			</h:outputText>
 			<h:outputText/>
 		</h:panelGrid>
 

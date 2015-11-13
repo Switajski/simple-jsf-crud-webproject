@@ -53,6 +53,12 @@
 							<h:message for="accountBeanExampleLogin" styleClass="error"/>
 						</h:panelGroup>
 						<h:outputText/>
+						<h:outputLabel for="accountBeanExamplePassword" value="Password:"/>
+						<h:panelGroup>
+							<h:inputText id="accountBeanExamplePassword" value="#{accountBean.example.password}"/>
+							<h:message for="accountBeanExamplePassword" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
 					</h:panelGrid>
 					<h:panelGroup styleClass="buttons">
 						<h:commandLink value="Search" action='#{accountBean.search}' styleClass="btn btn-primary"/>
@@ -96,6 +102,15 @@
 					<h:link outcome="/account/view">
 						<f:param name="id" value="#{_item.id}"/>
 						<h:outputText id="itemLogin" value="#{_item.login}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Password"/>
+					</f:facet>
+					<h:link outcome="/account/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemPassword" value="#{_item.password}"/>
 					</h:link>
 				</h:column>
 			</h:dataTable>

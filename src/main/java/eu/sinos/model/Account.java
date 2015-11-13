@@ -7,11 +7,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
 import javax.persistence.OneToMany;
-import javax.persistence.InheritanceType;
 
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
 public class Account extends BaseEntity {
 
@@ -35,7 +32,7 @@ public class Account extends BaseEntity {
 	@Column
 	private String password;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<User> users = new HashSet<User>();
 
 	public String getName() {
@@ -87,20 +84,21 @@ public class Account extends BaseEntity {
 	}
 
 	public Set<User> getUsers() {
-		return Collections.unmodifiableSet(this.users);
+		return this.users;
 	}
-	
+
 	/**
 	 * Add user and handle bidirectional relationship
 	 * @param user
 	 */
-	public void addUser(User user){
-		if (users.contains(user)) return;
-        users.add(user);
-        user.setAccount(this);
+	public void addUser(User user) {
+		if (users.contains(user))
+			return;
+		users.add(user);
+		user.setAccount(this);
 	}
-	
-	public void removeUser(User user){
+
+	public void removeUser(User user) {
 		users.remove(user);
 	}
 

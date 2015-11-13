@@ -14,7 +14,6 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
-import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -33,7 +32,6 @@ public abstract class BaseEntity implements Serializable {
 	@Column(name = "version")
 	private int version;
 	
-	@NotNull
     @Column(updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
@@ -110,6 +108,6 @@ public abstract class BaseEntity implements Serializable {
 	
 	@Override
     public String toString(){
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SIMPLE_STYLE);
     }
 }

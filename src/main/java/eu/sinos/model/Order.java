@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 @Entity
-@Table(name="order_")
+@Table(name = "order_")
 public class Order extends BaseEntity {
 
 	private static final long serialVersionUID = 2370593258389385386L;

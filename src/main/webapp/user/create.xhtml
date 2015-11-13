@@ -37,12 +37,57 @@
 			<h:messages globalOnly="true" styleClass="error"/>
 
 			<h:panelGrid columnClasses="label,component,required" columns="3">
-				<h:outputLabel for="userBeanUserName" value="Name:"/>
+				<h:outputLabel value="Status:"/>
 				<h:panelGroup>
-					<h:inputText id="userBeanUserName" required="true" value="#{userBean.user.name}"/>
-					<h:message for="userBeanUserName" styleClass="error"/>
+					<h:commandLink action="#{userBean.user.newStatus}" rendered="#{empty userBean.user.status}" value="Create New Status"/>
+					<h:panelGrid columnClasses="label,component,required" columns="3" rendered="#{!empty userBean.user.status}">
+						<h:outputLabel for="userBeanUserStatusEmployee" value="Employee:"/>
+						<h:panelGroup>
+							<h:inputText id="userBeanUserStatusEmployee" value="#{userBean.user.status.employee}"/>
+							<h:message for="userBeanUserStatusEmployee" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="userBeanUserStatusCustomer" value="Customer:"/>
+						<h:panelGroup>
+							<h:inputText id="userBeanUserStatusCustomer" value="#{userBean.user.status.customer}"/>
+							<h:message for="userBeanUserStatusCustomer" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="userBeanUserStatusSupplier" value="Supplier:"/>
+						<h:panelGroup>
+							<h:inputText id="userBeanUserStatusSupplier" value="#{userBean.user.status.supplier}"/>
+							<h:message for="userBeanUserStatusSupplier" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+					</h:panelGrid>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="userBeanUserAccountID" value="Account ID:"/>
+				<h:panelGroup>
+					<h:inputText id="userBeanUserAccountID" value="#{userBean.user.accountID}"/>
+					<h:message for="userBeanUserAccountID" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="userBeanUserAddress" value="Address:"/>
+				<h:panelGroup>
+					<h:inputText id="userBeanUserAddress" value="#{userBean.user.address}"/>
+					<h:message for="userBeanUserAddress" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="userBeanUserAccount" value="Account:"/>
+				<h:panelGroup>
+					<h:selectOneMenu converter="#{accountBean.converter}" id="userBeanUserAccount" required="true" value="#{userBean.user.account}">
+						<f:selectItems itemLabel="#{forgeview:display(_item)}" itemValue="#{_item}" value="#{accountBean.all}" var="_item"/>
+					</h:selectOneMenu>
+					<h:message for="userBeanUserAccount" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText value="*"/>
+				<h:outputLabel for="userBeanUserName" value="Name:"/>
+				<h:panelGroup>
+					<h:inputText id="userBeanUserName" value="#{userBean.user.name}"/>
+					<h:message for="userBeanUserName" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
 				<h:outputLabel for="userBeanUserSurname" value="Surname:"/>
 				<h:panelGroup>
 					<h:inputText id="userBeanUserSurname" value="#{userBean.user.surname}"/>
@@ -55,69 +100,22 @@
 					<h:message for="userBeanUserEmail" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
-				<h:outputLabel for="userBeanUserAddress" value="Address:"/>
+				<h:outputLabel for="userBeanUserLogin" value="Login:"/>
 				<h:panelGroup>
-					<h:inputText id="userBeanUserAddress" value="#{userBean.user.address}"/>
-					<h:message for="userBeanUserAddress" styleClass="error"/>
+					<h:inputText id="userBeanUserLogin" value="#{userBean.user.login}"/>
+					<h:message for="userBeanUserLogin" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
-				<h:outputLabel for="userBeanUserAccount" value="Account:"/>
+				<h:outputLabel for="userBeanUserPassword" value="Password:"/>
 				<h:panelGroup>
-					<ui:param name="_collection" value="#{userBean.user.account}"/>
-					<h:dataTable id="userBeanUserAccount" styleClass="data-table" value="#{forgeview:asList(_collection)}" var="_item">
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Name"/>
-							</f:facet>
-							<h:link outcome="/account/view">
-								<f:param name="id" value="#{_item.id}"/>
-								<h:outputText id="itemName" value="#{_item.name}"/>
-							</h:link>
-						</h:column>
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Surname"/>
-							</f:facet>
-							<h:link outcome="/account/view">
-								<f:param name="id" value="#{_item.id}"/>
-								<h:outputText id="itemSurname" value="#{_item.surname}"/>
-							</h:link>
-						</h:column>
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Email"/>
-							</f:facet>
-							<h:link outcome="/account/view">
-								<f:param name="id" value="#{_item.id}"/>
-								<h:outputText id="itemEmail" value="#{_item.email}"/>
-							</h:link>
-						</h:column>
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Login"/>
-							</f:facet>
-							<h:link outcome="/account/view">
-								<f:param name="id" value="#{_item.id}"/>
-								<h:outputText id="itemLogin" value="#{_item.login}"/>
-							</h:link>
-						</h:column>
-						<h:column footerClass="remove-column" headerClass="remove-column">
-							<h:commandLink action="#{_collection.remove(_item)}" styleClass="remove-button"/>
-						</h:column>
-					</h:dataTable>
-					<h:panelGrid columnClasses=",remove-column" columns="2" styleClass="data-table-footer">
-						<h:selectOneMenu converter="#{accountBean.converter}" id="userBeanUserAccountSelect" value="#{requestScope['userBeanUserAccountSelect']}">
-							<f:selectItem/>
-							<f:selectItems itemLabel="#{forgeview:display(_item)}" itemValue="#{_item}" value="#{accountBean.all}" var="_item"/>
-						</h:selectOneMenu>
-						<h:commandLink action="#{_collection.add(requestScope['userBeanUserAccountSelect'])}" id="userBeanUserAccountAdd" onclick="if (document.getElementById(document.forms[0].id+':userBeanUserAccountSelect').selectedIndex &lt; 1) { alert('Must select a Account'); return false; }" styleClass="add-button"/>
-					</h:panelGrid>
+					<h:inputText id="userBeanUserPassword" value="#{userBean.user.password}"/>
+					<h:message for="userBeanUserPassword" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
-				<h:outputLabel for="userBeanUserIsValid" value="Is Valid:"/>
+				<h:outputLabel for="userBeanUserValid" value="Valid:"/>
 				<h:panelGroup>
-					<h:selectBooleanCheckbox id="userBeanUserIsValid" value="#{userBean.user.isValid}"/>
-					<h:message for="userBeanUserIsValid" styleClass="error"/>
+					<h:selectBooleanCheckbox id="userBeanUserValid" value="#{userBean.user.valid}"/>
+					<h:message for="userBeanUserValid" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
 			</h:panelGrid>
