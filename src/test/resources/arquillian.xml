@@ -3,5 +3,7 @@
   <container qualifier="arquillian-jbossas-remote-7">
   <property name="username">marek</property>
   <property name="password">kyuss!)89</property>
+  <property name="managementAddress">localhost</property>
+  <property name="managementPort">9999</property>
   </container>
 </arquillian>
